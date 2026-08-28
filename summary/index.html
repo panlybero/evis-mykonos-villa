@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>At a Glance — Evi's Mykonos Villa</title>
+<meta name="description" content="6 bedrooms, private pool, and a prime location in the south side of Mykonos.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a href="/" class="brand">Evi&rsquo;s <span>Mykonos Villa</span></a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/" class="nav-link">Home</a></li>
+        <li class="dropdown open">
+          <a href="#" class="nav-link">About</a>
+          <div class="dropdown-menu">
+            <a href="/summary/" class="active">Summary</a>
+            <a href="/interior/">Interior</a>
+            <a href="/bedrooms/">Bedrooms</a>
+            <a href="/location/">Location</a>
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="nav-link">Galleries</a>
+          <div class="dropdown-menu">
+            <a href="/pool/">Pool</a>
+            <a href="/view/">View</a>
+            <a href="/seating/">Seating</a>
+            <a href="/table/">Dining Table</a>
+            <a href="/bbq/">BBQ</a>
+          </div>
+        </li>
+          <li><a href="/contact/" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="https://airbnb.com/h/evismykonosvilla" class="btn btn-primary" target="_blank" rel="noopener">Book Here</a>
+        </div>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <main>
+    <section class="hero page-hero" style="background-image:url('/assets/img/summary/welcome.jpg')">
+      <div class="hero-inner">
+        <h1>At a Glance</h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-stack">
+          <div class="feature-grid">
+            <div class="feature-media"><img src="/assets/img/summary/map.jpg" alt="Map of the villa's location on Mykonos"></div>
+            <div class="feature-text">
+              <h4>Location</h4>
+              <h3>Your Location</h3>
+              <p>The villa is located in the south side of the island, only a short drive away from the village of Ano Mera and countless beautiful beaches.</p>
+              <a href="/location/" class="btn btn-outline-dark">View location</a>
+            </div>
+          </div>
+
+          <div class="feature-grid reverse">
+            <div class="feature-media"><img src="/assets/img/summary/master_bed.jpeg" alt="Master bedroom"></div>
+            <div class="feature-text">
+              <h4>Space</h4>
+              <h3>Your Space</h3>
+              <p>6 bedrooms with bathrooms ensuite, accommodating up to 10 people.</p>
+              <a href="/bedrooms/" class="btn btn-outline-dark">See the bedrooms</a>
+            </div>
+          </div>
+
+          <div class="feature-grid">
+            <div class="feature-media"><img src="/assets/img/summary/glasses.jpeg" alt="Welcome amenities"></div>
+            <div class="feature-text">
+              <h4>Amenities</h4>
+              <h3>Your Amenities</h3>
+              <p>Enjoy a selection of complementary offerings from your host Evi.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="crosslink">
+      <div class="container">
+        <h3>Curious about the interior?</h3>
+        <a href="/interior/" class="btn btn-outline">Explore the Interior</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">Evi&rsquo;s Mykonos Villa</div>
+        <ul class="footer-links">
+          <li><a href="/summary/">About</a></li>
+          <li><a href="/pool/">Galleries</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="https://airbnb.com/h/evismykonosvilla" target="_blank" rel="noopener">Book on Airbnb</a></li>
+          <li><a href="https://www.instagram.com/mediterranean_mykonos_villa/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <span>Ano Mera, Mykonos, 84600 &middot; <a href="mailto:evismykonosvilla@gmail.com">evismykonosvilla@gmail.com</a></span>
+        <span>&copy; <span id="year"></span> Evi&rsquo;s Mykonos Villa</span>
+      </div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>
