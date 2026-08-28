@@ -43,6 +43,19 @@ were reimplemented:
   each gallery's own `data-props` attribute, so they match the original.
 - **`assets/js/nav.js`** — the mobile overlay menu: burger open/close, the
   header colour-theme swap, and the About/Galleries folder sub-panels.
+- **`assets/js/animations.js`** — the scroll fade-in, using Squarespace's own
+  `.preFade` / `.fadeIn` classes. Notes on the implementation:
+  - On load the fade waits for the section background image to paint first, so
+    content appears over a filled hero rather than a blank area.
+  - `.preFade` is applied with transitions switched off and the hidden state is
+    flushed before transitions are enabled. Without this the element only
+    starts easing away from opacity 1 and the reveal snaps instead of fading.
+  - Timing is `ease-out` / `0.55s` with a small staggered delay. The original
+    used `0.9s`; this is deliberately quicker.
+  - Anything scrolled past (End key, hash link, fast fling) is shown
+    immediately, so content can never get stuck invisible.
+  - `prefers-reduced-motion` is honoured, and because `.preFade` is added by
+    script the content stays visible if JavaScript is unavailable.
 
 Images were also un-lazy-loaded from Squarespace's JS loader and given real
 `src` attributes, so the page renders correctly even with JavaScript off.
@@ -62,13 +75,16 @@ markup, so it is verbose and class-heavy — editing text and swapping image
 paths is easy, but restructuring layout means working within Squarespace's
 "fluid engine" grid classes.
 
+## Differences from the original
+
+- The **newsletter / mailing-list block** has been removed from the home,
+  interior and bedrooms pages (it was never wired up to anything off
+  Squarespace). Those three pages are correspondingly shorter than the
+  original. To bring it back, restore the block markup and point the form at a
+  real endpoint such as Formspree.
+
 ## Known follow-ups
 
-- **The newsletter signup form is not connected.** It posts to
-  `https://formspree.io/f/REPLACE_ME`. Create a free form at
-  [formspree.io](https://formspree.io) and replace that URL (it appears on the
-  home, interior and bedrooms pages), or delete the form block. It did not
-  work off-Squarespace either way.
 - **Photos are Squarespace's web-optimised copies** (~11 MB total, mostly
   1440px wide). If you have the full-resolution originals, dropping them into
   `assets/img/<id>/` with the same filenames will improve sharpness on large

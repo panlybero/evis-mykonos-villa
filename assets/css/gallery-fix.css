@@ -1,26 +1,16 @@
-/* Overrides for galleries + blocks that Squarespace normally reveals via JS.
-   Loaded after site.css / static.css. */
+/* Overrides for galleries and for blocks Squarespace only revealed via JS.
+   Loaded after site.css / static.css.
 
-/* Squarespace hides these until its JS marks them rendered/loaded */
-.newsletter-block:not(.rendered),
-.sqs-block-form:not(.rendered) {
-  opacity: 1 !important;
-}
-
-[data-animation-role],
-.gallery-strips-item-wrapper,
-.gallery-grid-item-wrapper,
-.gallery-masonry-item-wrapper {
-  opacity: 1 !important;
-  transform: none !important;
-  visibility: visible !important;
-}
+   Note: elements carrying [data-animation-role] are deliberately NOT forced
+   visible here - assets/js/animations.js drives the scroll fade-in using
+   Squarespace's own .preFade / .fadeIn classes. Because .preFade is added by
+   JS, content stays visible if scripting is unavailable. */
 
 /* gallery items are positioned by assets/js/gallery.js */
 .gallery-strips-wrapper,
 .gallery-grid-wrapper,
 .gallery-masonry-wrapper {
-  font-size: 0; /* kill inline-block whitespace gaps in strips layout */
+  font-size: 0; /* kill inline-block whitespace gaps in the strips layout */
 }
 
 .gallery-strips-item,
@@ -29,6 +19,8 @@
   font-size: 1rem;
 }
 
+/* the <img> itself always fills its figure; the fade is applied to the
+   wrapper element, so forcing the image opaque here is safe */
 .gallery-strips-item img,
 .gallery-grid-item img,
 .gallery-masonry-item img {
@@ -36,10 +28,9 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  opacity: 1 !important;
+  opacity: 1;
 }
 
-/* the wrappers Squarespace uses inside each figure */
 .gallery-strips-item-wrapper,
 .gallery-grid-item-wrapper,
 .gallery-masonry-item-wrapper {
