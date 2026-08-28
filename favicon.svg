@@ -1,4 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#1f5f7a"/>
-  <path d="M32 14 L50 30 H44 V50 H20 V30 H14 Z" fill="#fbfaf7"/>
+  <rect width="64" height="64" rx="10" fill="#1c9ad6"/>
+  <!-- whitewashed villa -->
+  <path d="M14 34h16v18H14z" fill="#ffffff"/>
+  <path d="M30 26h20v26H30z" fill="#f4f7f9"/>
+  <path d="M28 27l12-9 12 9z" fill="#ffffff"/>
+  <rect x="35" y="33" width="5" height="6" rx="1" fill="#1c9ad6"/>
+  <rect x="43" y="33" width="5" height="6" rx="1" fill="#1c9ad6"/>
+  <rect x="19" y="39" width="5" height="6" rx="1" fill="#1c9ad6"/>
+  <!-- pool -->
+  <path d="M8 52h48v4H8z" fill="#57c9f2"/>
 </svg>

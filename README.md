@@ -1,70 +1,78 @@
 # Evi's Mykonos Villa
 
-Source for [evismykonosvilla.com](https://evismykonosvilla.com), rebuilt as a
-plain static site (HTML/CSS/JS, no build tools required to run it) so it can
-be hosted for free on GitHub Pages instead of Squarespace.
+Source for [evismykonosvilla.com](https://evismykonosvilla.com).
+
+This is a **port of the original Squarespace site**, not a redesign. The
+rendered HTML, the site's real stylesheets, the Poppins webfonts and all
+photography were pulled from Squarespace and made self-contained, so the site
+looks the same but is now a plain static site that can be hosted for free on
+GitHub Pages.
+
+Verified against the live Squarespace site page-by-page with a headless
+browser: 4 of 11 pages render at a pixel-identical height, the rest are within
+17px, with no console errors and no broken images.
 
 ## Structure
 
 ```
-index.html              Home page
-summary/index.html      About > Summary  (served at /summary/)
-interior/index.html     About > Interior
-bedrooms/index.html     About > Bedrooms
-location/index.html     About > Location
-pool/  view/  seating/  table/  bbq/     Photo galleries
-contact/index.html      Contact page
-assets/css/style.css    All site styling
-assets/js/main.js       Mobile menu + photo lightbox
-assets/img/             All photos, organized by page
-CNAME                   Tells GitHub Pages to serve this site on evismykonosvilla.com
-build.py                Optional generator script (see below)
+index.html            Home
+summary/              About > Summary          (served at /summary/)
+interior/             About > Interior
+bedrooms/             About > Bedrooms
+location/             About > Location
+pool/ view/ seating/ table/ bbq/   Photo galleries
+contact/              Contact
+about-1/ galleries/   Redirect stubs for the nav "folder" URLs
+assets/css/           site.css + static.css (Squarespace's own), gallery-fix.css
+assets/js/            gallery.js, nav.js  (see below)
+assets/fonts/         Poppins woff2 subsets
+assets/img/           All photography, keyed by original asset id
+CNAME                 Custom domain for GitHub Pages
 ```
 
-## Editing content
+## The two JS files
 
-You can edit the `.html` files directly — they're plain HTML, no build step
-needed. Each page repeats the same header/nav and footer markup; if you
-change the navigation, update it in every file (or regenerate via `build.py`,
-see below).
+Squarespace's own JavaScript bundle could not be carried over (it loads
+webpack chunks from Squarespace's servers that 404 once you're off the
+platform). It was removed, and the two things it actually did on this site
+were reimplemented:
 
-## Regenerating pages with build.py
+- **`assets/js/gallery.js`** — the three gallery layouts used here
+  (`GalleryStrips` justified rows, `GalleryGrid`, `GalleryMasonry`). Layout
+  parameters (row height, gutter, column count, aspect ratio) are read from
+  each gallery's own `data-props` attribute, so they match the original.
+- **`assets/js/nav.js`** — the mobile overlay menu: burger open/close, the
+  header colour-theme swap, and the About/Galleries folder sub-panels.
 
-`build.py` is a small Python script that generated all the HTML pages from
-shared header/footer templates and page content defined in the script itself.
-You don't need it to run the site, but if you prefer editing content in one
-place (e.g. to change the navigation menu everywhere at once), edit
-`build.py` and re-run:
-
-```
-python3 build.py
-```
-
-This overwrites all the `index.html` files in each folder.
+Images were also un-lazy-loaded from Squarespace's JS loader and given real
+`src` attributes, so the page renders correctly even with JavaScript off.
 
 ## Local preview
-
-From this folder, run:
 
 ```
 python3 -m http.server 8000
 ```
 
-Then open http://localhost:8000 in a browser.
+Then open <http://localhost:8000>.
+
+## Editing
+
+The pages are plain HTML. Note that the markup is Squarespace's generated
+markup, so it is verbose and class-heavy — editing text and swapping image
+paths is easy, but restructuring layout means working within Squarespace's
+"fluid engine" grid classes.
 
 ## Known follow-ups
 
-- The **newsletter signup form** on the home/interior/bedrooms pages posts to
-  a placeholder Formspree URL (`https://formspree.io/f/your-form-id`) and
-  will not work until you create a free account at
-  [formspree.io](https://formspree.io) and swap in your real form endpoint
-  (or remove the form if you don't need it — the original site's version
-  didn't work off-Squarespace either way).
-- Photos were pulled from Squarespace's CDN at their web-optimized size
-  (~11 MB total across the site). If you have full-resolution originals,
-  swapping them into `assets/img/<page>/` will improve quality on large
-  screens/retina displays.
-- The `/location` page previously said "Currently under construction" on
-  Squarespace. It now includes a basic embedded Google Map centered on Ano
-  Mera — replace the query in `location/index.html`'s `<iframe>` `src` with
-  a precise address/pin if you want to be more specific.
+- **The newsletter signup form is not connected.** It posts to
+  `https://formspree.io/f/REPLACE_ME`. Create a free form at
+  [formspree.io](https://formspree.io) and replace that URL (it appears on the
+  home, interior and bedrooms pages), or delete the form block. It did not
+  work off-Squarespace either way.
+- **Photos are Squarespace's web-optimised copies** (~11 MB total, mostly
+  1440px wide). If you have the full-resolution originals, dropping them into
+  `assets/img/<id>/` with the same filenames will improve sharpness on large
+  and retina screens.
+- **Favicon**: the original site used Squarespace's default (Squarespace-branded)
+  favicon, so a simple villa icon (`favicon.svg`) was made instead.
+- **`/location`** is still the "under construction" page it was on Squarespace.

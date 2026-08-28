@@ -1,0 +1,48 @@
+/* Overrides for galleries + blocks that Squarespace normally reveals via JS.
+   Loaded after site.css / static.css. */
+
+/* Squarespace hides these until its JS marks them rendered/loaded */
+.newsletter-block:not(.rendered),
+.sqs-block-form:not(.rendered) {
+  opacity: 1 !important;
+}
+
+[data-animation-role],
+.gallery-strips-item-wrapper,
+.gallery-grid-item-wrapper,
+.gallery-masonry-item-wrapper {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+/* gallery items are positioned by assets/js/gallery.js */
+.gallery-strips-wrapper,
+.gallery-grid-wrapper,
+.gallery-masonry-wrapper {
+  font-size: 0; /* kill inline-block whitespace gaps in strips layout */
+}
+
+.gallery-strips-item,
+.gallery-grid-item,
+.gallery-masonry-item {
+  font-size: 1rem;
+}
+
+.gallery-strips-item img,
+.gallery-grid-item img,
+.gallery-masonry-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 1 !important;
+}
+
+/* the wrappers Squarespace uses inside each figure */
+.gallery-strips-item-wrapper,
+.gallery-grid-item-wrapper,
+.gallery-masonry-item-wrapper {
+  width: 100%;
+  height: 100%;
+}
