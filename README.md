@@ -50,8 +50,13 @@ were reimplemented:
   - `.preFade` is applied with transitions switched off and the hidden state is
     flushed before transitions are enabled. Without this the element only
     starts easing away from opacity 1 and the reveal snaps instead of fading.
-  - Timing is `ease-out` / `0.55s` with a small staggered delay. The original
-    used `0.9s`; this is deliberately quicker.
+  - Timing is `ease-out` / `0.55s`. The original used `0.9s`; this is
+    deliberately quicker.
+  - Whatever is on screen at load is cascaded in document order
+    (`INITIAL_BASE` / `INITIAL_STEP`) so the hero fills in progressively.
+    Staggering per-section instead made every above-the-fold element start at
+    the same instant, which read as one block popping in rather than a fade.
+    Elements revealed later, on scroll, keep the per-section stagger.
   - Anything scrolled past (End key, hash link, fast fling) is shown
     immediately, so content can never get stuck invisible.
   - `prefers-reduced-motion` is honoured, and because `.preFade` is added by

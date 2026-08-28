@@ -25,6 +25,14 @@
   var MAX_STEPS = 5;      // cap so later items don't lag behind
   var HERO_TIMEOUT = 1500; // ms to wait on the hero image before starting
 
+  /* On first paint the original cascades content in after the header rather
+     than moving everything at once, which is what stops it reading as a
+     single block popping into place. These are the offsets for that first
+     batch (the original used ~0.2s + ~0.035s steps; tightened here). */
+  var INITIAL_BASE = 0.12;  // seconds after the header starts
+  var INITIAL_STEP = 0.05;  // seconds between consecutive items
+  var INITIAL_MAX = 6;      // cap the cascade length
+
   function reducedMotion() {
     return window.matchMedia &&
            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -145,11 +153,14 @@
     var queued = false;
     var armed = false;   // set once the hero image has painted
 
+    var firstBatch = true;
+
     function check() {
       queued = false;
       if (!armed) return;
       var vh = window.innerHeight;
       var still = [];
+      var batch = [];
       for (var i = 0; i < pending.length; i++) {
         var el = pending[i];
         var r = el.getBoundingClientRect();
@@ -159,11 +170,26 @@
           el.style.transitionDelay = "0s";
           reveal(el);
         } else if (r.top < vh * 0.92) {
-          reveal(el);
+          batch.push(el);
         } else {
           still.push(el);
         }
       }
+
+      /* The first batch is whatever is on screen at load. Cascade it in
+         document order so the hero fills in progressively instead of every
+         element starting at the same instant. Later batches keep the
+         per-section stagger assigned during priming, which reads correctly
+         when a section scrolls into view as a unit. */
+      if (firstBatch && batch.length) {
+        firstBatch = false;
+        batch.forEach(function (el, idx) {
+          var steps = Math.min(idx, INITIAL_MAX);
+          el.style.transitionDelay =
+            (INITIAL_BASE + steps * INITIAL_STEP).toFixed(4) + "s";
+        });
+      }
+      batch.forEach(reveal);
       pending = still;
       if (!pending.length) {
         window.removeEventListener("scroll", onScroll);
