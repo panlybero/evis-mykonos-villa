@@ -38,11 +38,30 @@
            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
 
+  /* Squarespace animates more than just [data-animation-role]. Headings and
+     paragraphs get `preFade` applied directly to the element inside
+     `.sqs-html-content`, which is why the copy fades in alongside the buttons
+     and images rather than appearing instantly. */
+  var TARGETS = [
+    "[data-animation-role]",
+    ".sqs-html-content > h1",
+    ".sqs-html-content > h2",
+    ".sqs-html-content > h3",
+    ".sqs-html-content > h4",
+    ".sqs-html-content > h5",
+    ".sqs-html-content > h6",
+    ".sqs-html-content > p"
+  ].join(",");
+
   function init() {
-    var all = Array.prototype.slice.call(
-      document.querySelectorAll("[data-animation-role]")
-    );
+    var all = Array.prototype.slice.call(document.querySelectorAll(TARGETS));
     if (!all.length) return;
+
+    // keep document order and drop empty text nodes
+    all = all.filter(function (el) {
+      if (el.hasAttribute("data-animation-role")) return true;
+      return (el.textContent || "").trim().length > 0;
+    });
 
     // Respect the user's motion preference: leave everything visible.
     if (reducedMotion()) return;

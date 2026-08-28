@@ -45,6 +45,11 @@ were reimplemented:
   header colour-theme swap, and the About/Galleries folder sub-panels.
 - **`assets/js/animations.js`** — the scroll fade-in, using Squarespace's own
   `.preFade` / `.fadeIn` classes. Notes on the implementation:
+  - Squarespace animates more than `[data-animation-role]`: headings and
+    paragraphs get `preFade` applied directly to the element inside
+    `.sqs-html-content`. Both sets are targeted here, otherwise the copy
+    appears instantly while only buttons and images fade, which reads as the
+    page snapping in.
   - On load the fade waits for the section background image to paint first, so
     content appears over a filled hero rather than a blank area.
   - `.preFade` is applied with transitions switched off and the hidden state is
